@@ -1,7 +1,7 @@
 package session
 
 import (
-	"html/template"
+	"github.com/moisespsena/template/html/template"
 	"net/http"
 )
 
@@ -32,4 +32,29 @@ type ManagerInterface interface {
 type Message struct {
 	Message template.HTML
 	Type    string
+}
+
+type RequestSessionManager interface {
+	// Add value to session data, if value is not string, will marshal it into JSON encoding and save it into session data.
+	Add(key string, value interface{}) error
+	// Get value from session data
+	Get(key string) string
+	// Pop value from session data
+	Pop(key string) string
+
+	// Flash add flash message to session data
+	Flash(message Message) error
+	// Flashes returns a slice of flash messages from session data
+	Flashes() []Message
+
+	// Load get value from session data and unmarshal it into result
+	Load(key string, result interface{}) error
+	// PopLoad pop value from session data and unmarshal it into result
+	PopLoad(key string, result interface{}) error
+
+	Middleware(http.Handler) http.Handler
+
+	ResponseWriter() http.ResponseWriter
+
+	Request() *http.Request
 }
