@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/qor/session"
+	"github.com/aghape/session"
 )
 
 var Server *httptest.Server
