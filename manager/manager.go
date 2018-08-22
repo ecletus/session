@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/moisespsena/go-route"
-	"github.com/aghape/aghape"
+	"github.com/aghape/core"
 	"github.com/aghape/session"
 	"github.com/aghape/session/gorilla"
 )
@@ -62,11 +62,11 @@ func (sm *RequestSessionManager) Middleware(handler http.Handler) http.Handler {
 	return sm.Manager.Middleware(handler)
 }
 
-func Middleware(setupConfig *qor.SetupConfig) *route.Middleware {
+func Middleware(setupConfig *core.SetupConfig) *route.Middleware {
 	return &route.Middleware{
 		Name: "qor:session",
 		Handler: func(chain *route.ChainHandler) {
-			context := qor.ContexFromChain(chain)
+			context := core.ContexFromChain(chain)
 			rsm := context.SessionManager()
 			if rsm == nil {
 				cookieStore := setupConfig.CookieStoreFactory()(context, nil, nil)

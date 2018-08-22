@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 
 	beego_session "github.com/astaxie/beego/session"
-	"github.com/aghape/aghape/utils"
+	"github.com/aghape/core/utils"
 	"github.com/aghape/session"
 )
 

@@ -8,7 +8,7 @@ import (
 
 	gorillaContext "github.com/gorilla/context"
 	"github.com/gorilla/sessions"
-	"github.com/aghape/aghape/utils"
+	"github.com/aghape/core/utils"
 	"github.com/aghape/session"
 )
 
