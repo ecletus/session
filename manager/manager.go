@@ -3,7 +3,7 @@ package manager
 import (
 	"net/http"
 
-	"github.com/moisespsena/go-route"
+	"github.com/moisespsena-go/xroute"
 	"github.com/aghape/core"
 	"github.com/aghape/session"
 	"github.com/aghape/session/gorilla"
@@ -62,10 +62,10 @@ func (sm *RequestSessionManager) Middleware(handler http.Handler) http.Handler {
 	return sm.Manager.Middleware(handler)
 }
 
-func Middleware(setupConfig *core.SetupConfig) *route.Middleware {
-	return &route.Middleware{
+func Middleware(setupConfig *core.SetupConfig) *xroute.Middleware {
+	return &xroute.Middleware{
 		Name: "qor:session",
-		Handler: func(chain *route.ChainHandler) {
+		Handler: func(chain *xroute.ChainHandler) {
 			context := core.ContexFromChain(chain)
 			rsm := context.SessionManager()
 			if rsm == nil {
@@ -78,7 +78,7 @@ func Middleware(setupConfig *core.SetupConfig) *route.Middleware {
 			handler := rsm.Middleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				context.Request = r
 				chain.SetRequest(r)
-				chain.Next()
+				chain.Pass()
 			}))
 			handler.ServeHTTP(chain.Writer, chain.Request())
 		},
