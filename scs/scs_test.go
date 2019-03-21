@@ -5,8 +5,8 @@ import (
 
 	scssession "github.com/alexedwards/scs"
 	"github.com/alexedwards/scs/stores/memstore"
-	"github.com/aghape/session/scs"
-	"github.com/aghape/session/test"
+	"github.com/ecletus/session/scs"
+	"github.com/ecletus/session/test"
 )
 
 func TestAll(t *testing.T) {

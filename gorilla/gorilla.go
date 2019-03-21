@@ -8,8 +8,8 @@ import (
 
 	gorillaContext "github.com/gorilla/context"
 	"github.com/gorilla/sessions"
-	"github.com/aghape/core/utils"
-	"github.com/aghape/session"
+	"github.com/ecletus/core/utils"
+	"github.com/ecletus/session"
 )
 
 // New initialize session manager for gorilla

@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/moisespsena-go/xroute"
-	"github.com/aghape/core"
-	"github.com/aghape/session"
-	"github.com/aghape/session/gorilla"
+	"github.com/ecletus/core"
+	"github.com/ecletus/session"
+	"github.com/ecletus/session/gorilla"
 )
 
 type RequestSessionManager struct {

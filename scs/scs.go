@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/alexedwards/scs"
-	"github.com/aghape/session"
+	"github.com/ecletus/session"
 )
 
 // New initialize session manager for SCS
