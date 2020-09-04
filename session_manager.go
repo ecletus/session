@@ -1,8 +1,11 @@
 package session
 
 import (
-	"github.com/moisespsena/template/html/template"
+	"fmt"
 	"net/http"
+
+	"github.com/moisespsena-go/i18n-modular/i18nmod"
+	"github.com/moisespsena/template/html/template"
 )
 
 // ManagerInterface session manager interface
@@ -57,4 +60,21 @@ type RequestSessionManager interface {
 	ResponseWriter() http.ResponseWriter
 
 	Request() *http.Request
+}
+
+func TranslatedMessage(ctx i18nmod.Context, msg interface{}, typ string) Message {
+	switch t := msg.(type) {
+	case i18nmod.Translater:
+		return Message{template.HTML(t.Translate(ctx)), typ}
+	case error:
+		return Message{ctx.T(t.Error()).GetHtml(), typ}
+	case string:
+		return Message{ctx.T(t).GetHtml(), typ}
+	default:
+		return Message{ctx.T(fmt.Sprint(t)).GetHtml(), typ}
+	}
+}
+
+func TranslatedMessageE(ctx i18nmod.Context, msg interface{}) Message {
+	return TranslatedMessage(ctx, msg, "error")
 }

@@ -45,7 +45,8 @@ func (sm *RequestSessionManager) Flash(message session.Message) error {
 
 // Flashes returns a slice of flash messages from session data
 func (sm *RequestSessionManager) Flashes() []session.Message {
-	return sm.Manager.Flashes(sm.writer, sm.request)
+	messages := sm.Manager.Flashes(sm.writer, sm.request)
+	return messages
 }
 
 // Load get value from session data and unmarshal it into result
@@ -66,12 +67,12 @@ func Middleware(setupConfig *core.SetupConfig) *xroute.Middleware {
 	return &xroute.Middleware{
 		Name: "qor:session",
 		Handler: func(chain *xroute.ChainHandler) {
-			context := core.ContexFromChain(chain)
+			context := core.ContextFromRequest(chain.Request())
 			rsm := context.SessionManager()
 			if rsm == nil {
 				cookieStore := setupConfig.CookieStoreFactory()(context, nil, nil)
 				sm := gorilla.New("_session", cookieStore)
-				rsm = &RequestSessionManager{sm, chain.Writer, chain.Request()}
+				rsm = &RequestSessionManager{sm, context.Writer, context.Request}
 				context.SetSessionManager(rsm)
 			}
 
